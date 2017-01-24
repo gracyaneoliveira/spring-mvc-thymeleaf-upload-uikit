@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns="http://www.w3.org/1999/xhtml"
+xmlns:th = "http://www.thymeleaf.org">
+
+<head>
+	<meta charset="utf-8">
+	<title>Upload</title>
+	<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+	
+	<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+	<link rel="stylesheet" th:href="@{/css/upload.min.css}">
+	<link rel="stylesheet" th:href="@{/css/estilo.css}">
+	<link rel="shortcut icon" th:href="@{/images/cloud.png}"/>
+</head>
+
+<body>
+
+	<nav class="navbar navbar-default">
+		  <div class="container">
+		    <div class="navbar-header">
+				<p class="navbar-brand">
+				<span class="glyphicon glyphicon-cloud" aria-hidden="true"></span>
+					Upload de fotos
+				</p>
+		    </div>
+		  </div>
+	</nav>
+
+	<div class="container">	
+		<form method="POST" th:object="${vinho}" class="form-vertical">
+		
+				<div>
+										
+					<label class="control-label">Foto</label>
+					
+					<div id="upload-drop" class="vn-upload">
+						<i class="glyphicon glyphicon-cloud-upload"></i>
+						<span>Arraste a foto aqui ou</span>
+						<a class="vn-upload-form-file">selecione <input id="upload-select" type="file" accept=".jpg,.jpeg,.png"/></a>
+					</div>
+				</div>
+		</form>
+		<br>
+		<div class="row  js-container-foto-vinho">
+  			<div class="col-md-3" id="image-default">
+    			<a href="#" class="thumbnail">
+	     			 <img th:src="@{/images/semimages.jpg}" alt="Sem imagem">
+   				</a>
+		    </div>
+		</div>
+		
+		<th:block th:replace="fragments/component-image"></th:block>
+		
+	</div>
+	<script th:src="@{/js/jquery-2.2.4.min.js}"></script>
+	<script th:src="@{/js/bootstrap.min.js}"></script>
+	<script th:src="@{/js/uikit.min.js}"></script>
+	<script th:src="@{/js/upload.min.js}"></script>
+	<script th:src="@{/js/handlebars.min.js}"></script>
+	
+	<script>
+		$(function(){
+			var settings = {
+					type:'json',
+					filelimit: 4,
+					single: false,
+					allow: '*.(jpg|jpeg|png)',
+					action: '/vinhedo/fotos',
+					complete: function(resposta){					
+						for (i = 0; i < resposta.length; i++) {						
+							$('#image-default').remove();
+						
+							var htmlFotoVinhoTemplate = $('#foto-vinho').html();
+							var template = Handlebars.compile(htmlFotoVinhoTemplate);
+							var htmlFotoVinho = template({nomeFoto: resposta[i].nome});
+											
+							var containerFotoVinho = $('.js-container-foto-vinho'); 
+							containerFotoVinho.append(htmlFotoVinho);
+						}
+					}
+			};
+			UIkit.uploadSelect($('#upload-select'),settings);
+			UIkit.uploadDrop($('#upload-drop'),settings);
+		});
+	</script>
+	
+</body>
+
+</html>
