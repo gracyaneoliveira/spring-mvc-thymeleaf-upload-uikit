@@ -13,7 +13,7 @@ Projeto exemplo mostrando upload de imagens com Uikit
 
 Exemplo: 
 ![alt text][logo1]
-[logo1]: https://github.com/gracyaneoliveira/spring-mvc-thymeleaf-upload-uikit/master/src/main/resources/static/images/upload-1.png "Tela 1"
+[logo1]: https://github.com/gracyaneoliveira/spring-mvc-thymeleaf-upload-uikit/blob/master/src/main/resources/static/images/upload-1.png?raw=true "Tela 1"
 
 ![alt text][logo2]
 [logo2]: https://github.com/gracyaneoliveira/spring-mvc-thymeleaf-upload-uikit/blob/master/src/main/resources/static/images/upload-2.png "Tela 2"
